@@ -1,0 +1,20 @@
+[
+	{
+		"question": "In CSS, how would you select a div tag with a class of container?",
+		"answer": "div.container",
+		"choices": [
+			"container.div",
+			"div#container",
+			".container#div"
+		]
+	},
+	{
+		"question": "Which javascript condition is truthy?",
+		"answer": "1 == true",
+		"choices": [
+			"true === 'true'",
+			"0 == 'false'",
+			"'1' === true"
+		]
+	}
+]
