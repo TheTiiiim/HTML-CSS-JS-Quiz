@@ -7,6 +7,8 @@ This repo is my submission to UNH Coding Bootcamp's fourth assignment, where we 
 I decided at the beginning of the project that I wanted to store my question bank in an external json file and randomize the order of the questions.
 
 
+The deployed project can be found [here](https://thetiiiim.github.io/HTML-CSS-JS-Quiz/).
+
 ## Screenshots
 
 ## Credits
