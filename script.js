@@ -1,22 +1,35 @@
-let isReady = false;
-let questionBank
+let questionBank;
 
 $(() => {
+	let questionNumber = 0;
+	let questionsLoaded = false;
+
 	// get question bank from server
 	$.getJSON("https://raw.githubusercontent.com/TheTiiiim/HTML-CSS-JS-Quiz/main/questions.json")
 		.done((data) => {
 			questionBank = shuffle(data);
-			isReady = true;
+			questionsLoaded = true;
 		});
 
+	// Start Game
+	// TODO: wait unitl isReady is true before fading in
 	$("#startQuiz").on("click", function (e) {
 		$(".start").fadeOut(() => {
-			setQuestion(0);
-			$(".questionArea").fadeIn()
+			setQuestion(questionNumber);
+			$(".questionArea").fadeIn();
 		});
 	});
 
-	//TODO: hook to answer choice button clicks and advance questions
+	// Answer Choices
+	$(".questionArea .choice").on("click", function (e) {
+		$(".questionArea").fadeOut(() => {
+			questionNumber++;
+			setQuestion(questionNumber);
+			$(".questionArea").fadeIn();
+		});
+	});
+
+	// PROBLEM: application dies when questionBank is exhausted
 });
 
 function setQuestion(number) {
@@ -27,16 +40,21 @@ function setQuestion(number) {
 
 	let answerPosition = Math.floor(Math.random() * (3)) + 1;
 
-	// Iterates through choice spots and assigns one to be answer
+	// Iterates through positions spots and assigns one to be answer
 	for (i = 0; i < 4; i++) {
+		let choicePosition = choicesQuery.eq(i);
 		if (i === answerPosition) {
-			choicesQuery.eq(i).text(questionBank[number].answer);
+			choicePosition.text(questionBank[number].answer);
+			choicePosition.data("answer", true);
 		} else {
+			choicePosition.data("answer", false);
 			if (answerPosition < i) {
 				let adjustedChoice = i - 1;
-				choicesQuery.eq(i).text(choicesArray[adjustedChoice]);
+				choicePosition.text(choicesArray[adjustedChoice]);
+				//assign data
 			} else {
-				choicesQuery.eq(i).text(choicesArray[i]);
+				choicePosition.text(choicesArray[i]);
+				//assign data
 			}
 		}
 	}
