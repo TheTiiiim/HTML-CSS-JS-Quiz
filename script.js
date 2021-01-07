@@ -22,15 +22,24 @@ $(() => {
 function setQuestion(number) {
 	$(".questionArea .question").text(questionBank[number].question);
 
-	shuffle(questionBank[number].choices);
-	let choices = $(".questionArea .choice");
+	let choicesArray = shuffle(questionBank[number].choices);
+	let choicesQuery = $(".questionArea .choice");
 
-	//TODO: randomize answer position
-	choices.eq(0).text(questionBank[number].choices[0]);
-	choices.eq(1).text(questionBank[number].choices[1]);
-	choices.eq(2).text(questionBank[number].choices[2]);
-	choices.eq(3).text(questionBank[number].answer);
+	let answerPosition = Math.floor(Math.random() * (3)) + 1;
 
+	// Iterates through choice spots and assigns one to be answer
+	for (i = 0; i < 4; i++) {
+		if (i === answerPosition) {
+			choicesQuery.eq(i).text(questionBank[number].answer);
+		} else {
+			if (answerPosition < i) {
+				let adjustedChoice = i - 1;
+				choicesQuery.eq(i).text(choicesArray[adjustedChoice]);
+			} else {
+				choicesQuery.eq(i).text(choicesArray[i]);
+			}
+		}
+	}
 }
 
 
