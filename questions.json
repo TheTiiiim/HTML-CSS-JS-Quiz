@@ -19,29 +19,29 @@
 	},
 	{
 		"question": "Lorem ipsum, dolor sit amet consectetur adipisicing.",
-		"answer": "asdf ad",
+		"answer": "true",
 		"choices": [
-			" fasdfasd ",
-			"asdfagvdfasdf",
-			"gvadsfasbgvdf"
+			"false",
+			"false",
+			"false"
 		]
 	},
 	{
-		"question": "asdfbasdvfasdfwdfadfa",
-		"answer": "1 == true",
+		"question": "AAAAAAAAAAAAAAAAAAA AAAAAAAAAA AAAAAAAAAAAAAAA",
+		"answer": "true",
 		"choices": [
-			"true === 'true'",
-			"0 == 'false'",
-			"'1' === true"
+			"false",
+			"false",
+			"false"
 		]
 	},
 	{
-		"question": "absdfasdbfasdfbasbfadfasdfasdfasdfasdfasdfasdbfa",
-		"answer": "1 == true",
+		"question": "BBBBBBBBB BBBBBBBBBBBBBBBBBBB bBBBBBBBBBB",
+		"answer": "true",
 		"choices": [
-			"true === 'true'",
-			"0 == 'false'",
-			"'1' === true"
+			"false",
+			"false",
+			"false"
 		]
 	}
 ]
