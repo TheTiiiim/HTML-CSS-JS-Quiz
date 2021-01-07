@@ -1,0 +1,68 @@
+/* 
+
+Colors
+
+ #95f9e3
+ #69ebd0
+ #49d49d
+ #558564
+ #564946
+
+*/
+
+body {
+	background: #95f9e3;
+}
+
+h1,
+h2 {
+	color: #558564;
+}
+
+p {
+	color: #564946;
+}
+
+
+/* bootstrap button color override */
+
+.btn-primary {
+	color: #564946;
+	background-color: #49d49d;
+	border-color: #2FC68A;
+}
+
+.btn-primary:hover {
+	color: #564946;
+	background-color: #2FC68A;
+	border-color: #239567;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+	color: #564946;
+	background-color: #2FC68A;
+	border-color: #239567;
+	box-shadow: 0 0 0 0.2rem #2FC68A80;
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+	color: #564946;
+	background-color: #49d49d;
+	border-color: #49d49d;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show>.btn-primary.dropdown-toggle {
+	color: #564946;
+	background-color: #239567;
+	border-color: #1F845C;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+	box-shadow: 0 0 0 0.2rem #2FC68A80;
+}
