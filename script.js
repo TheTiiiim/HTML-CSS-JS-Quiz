@@ -16,16 +16,23 @@ $(() => {
 	$("#startQuiz").on("click", function (e) {
 		$(".start").fadeOut(() => {
 			setQuestion(questionNumber);
-			$(".questionArea").fadeIn();
+			$(".questionArea").fadeIn(300);
 		});
 	});
 
 	// Answer Choices
 	$(".questionArea .choice").on("click", function (e) {
-		$(".questionArea").fadeOut(() => {
+		if ($(e.target).data("answer") === true) {
+			$(".answerResponse").text("Correct!").css("color", "#558564");
+		} else {
+			$(".answerResponse").text("Incorrect").css("color", "#E4572E");
+		}
+		$(".answerResponse").stop(true, true).css("display", "block").fadeOut(2000);
+
+		$(".questionText").fadeOut(200, () => {
 			questionNumber++;
 			setQuestion(questionNumber);
-			$(".questionArea").fadeIn();
+			$(".questionText").fadeIn(200);
 		});
 	});
 
@@ -43,18 +50,17 @@ function setQuestion(number) {
 	// Iterates through positions spots and assigns one to be answer
 	for (i = 0; i < 4; i++) {
 		let choicePosition = choicesQuery.eq(i);
+		choicePosition.removeData("answer");
 		if (i === answerPosition) {
-			choicePosition.text(questionBank[number].answer);
 			choicePosition.data("answer", true);
+			choicePosition.text(questionBank[number].answer);
 		} else {
 			choicePosition.data("answer", false);
 			if (answerPosition < i) {
 				let adjustedChoice = i - 1;
 				choicePosition.text(choicesArray[adjustedChoice]);
-				//assign data
 			} else {
 				choicePosition.text(choicesArray[i]);
-				//assign data
 			}
 		}
 	}
