@@ -1,14 +1,15 @@
 let questionBank;
+let timeRemaining = 60;
+let timerInterval;
 
 $(() => {
 	let questionNumber = 0;
 	let questionsLoaded = false;
-	let timeRemaining = 60;
 
 	// get question bank from server
 	$.getJSON("https://raw.githubusercontent.com/TheTiiiim/HTML-CSS-JS-Quiz/main/questions.json")
 		.done((data) => {
-			questionBank = shuffle(data);
+			questionBank = shuffle(data).slice(0, 10);
 			questionsLoaded = true;
 		});
 
@@ -17,17 +18,10 @@ $(() => {
 	$("#startQuiz").on("click", function (e) {
 		// Change Screen
 		$(".start").fadeOut(() => {
-			setQuestion(questionNumber);
+			setQuestionText(questionNumber);
 			$(".questionArea").fadeIn(300, () => {
 				// Set Timer;
-				let timerInterval = setInterval(() => {
-					timeRemaining--;
-					$(".timerDisplay").text(timeRemaining);
-					if (timeRemaining <= 0) {
-						clearInterval(timerInterval);
-						// TODO: end quiz
-					}
-				}, 1000);
+				let timerInterval = setInterval(updateTimer, 1000);
 			});
 		});
 	});
@@ -39,7 +33,7 @@ $(() => {
 			$(".answerResponse").text("Correct!").css("color", "#558564");
 		} else {
 			$(".answerResponse").text("Incorrect").css("color", "#E4572E");
-			timeRemaining -= 5;
+			updateTimer(-5);
 			$(".timerChange").text("-5").stop(true, true).css("display", "block").fadeOut(1500)
 		}
 
@@ -47,17 +41,17 @@ $(() => {
 		$(".answerResponse").stop(true, true).css("display", "block").fadeOut(2000);
 
 		//change question
-		$(".questionText").fadeOut(200, () => {
+		$(".questionTextArea").fadeOut(200, () => {
 			questionNumber++;
-			setQuestion(questionNumber);
-			$(".questionText").fadeIn(200);
+			setQuestionText(questionNumber);
+			$(".questionTextArea").fadeIn(200);
 		});
 	});
 
 	// PROBLEM: application dies when questionBank is exhausted
 });
 
-function setQuestion(number) {
+function setQuestionText(number) {
 	$(".questionArea .question").text(questionBank[number].question);
 
 	let choicesArray = shuffle(questionBank[number].choices);
@@ -81,6 +75,15 @@ function setQuestion(number) {
 				choicePosition.text(choicesArray[i]);
 			}
 		}
+	}
+}
+
+function updateTimer(change = -1) {
+	timeRemaining += change;
+	$(".timerDisplay").text(timeRemaining);
+	if (timeRemaining <= 0) {
+		clearInterval(timerInterval);
+		// TODO: end quiz
 	}
 }
 

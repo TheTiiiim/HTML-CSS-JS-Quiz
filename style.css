@@ -24,6 +24,11 @@ div.start * {
 
 div.questionArea {
 	display: none;
+	position: relative;
+}
+
+div.questionArea div.questionTextArea {
+	margin-right: 50px;
 }
 
 div.questionArea button.btn.choice {
@@ -36,8 +41,8 @@ div.questionArea .answerResponse {
 }
 
 div.questionArea .timerArea {
-	position: fixed;
-	top: 0;
+	position: absolute;
+	top: 6px;
 	right: 0;
 	margin: 0;
 }
@@ -45,11 +50,7 @@ div.questionArea .timerArea {
 div.questionArea .timerDisplay,
 div.questionArea .timerChange {
 	text-align: center;
-	margin: 0 15px 0 0;
-}
-
-div.questionArea .timerDisplay {
-	margin-top: 15px;
+	margin: 0;
 }
 
 div.questionArea .timerChange {
