@@ -1,24 +1,75 @@
-let questionBank;
+class QuestionTracker {
+	#questionNumber
+	#questionBank
+	#areQuestionsLoaded
+
+	constructor() {
+		this.#questionNumber = 0
+		this.#areQuestionsLoaded = false;
+
+		// get question bank from server
+		$.getJSON("https://raw.githubusercontent.com/TheTiiiim/HTML-CSS-JS-Quiz/main/questions.json")
+			.done((data) => {
+				this.#questionBank = shuffle(data).slice(0, 10);
+				this.#areQuestionsLoaded = true;
+				this.#displayQuestionText();
+			});
+	}
+
+	#displayQuestionText() {
+		$(".questionArea .question").text(this.#questionBank[this.#questionNumber].question);
+
+		let choicesArray = shuffle(this.#questionBank[this.#questionNumber].choices);
+		let choicesQuery = $(".questionArea .choice");
+
+		let answerPosition = Math.floor(Math.random() * (3)) + 1;
+
+		// Iterates through positions spots and assigns one to be answer
+		for (let i = 0; i < 4; i++) {
+			let choicePosition = choicesQuery.eq(i);
+			choicePosition.removeData("answer");
+			if (i === answerPosition) {
+				choicePosition.data("answer", true);
+				choicePosition.text(this.#questionBank[this.#questionNumber].answer);
+			} else {
+				choicePosition.data("answer", false);
+				if (answerPosition < i) {
+					let adjustedChoice = i - 1;
+					choicePosition.text(choicesArray[adjustedChoice]);
+				} else {
+					choicePosition.text(choicesArray[i]);
+				}
+			}
+		}
+	}
+
+	getQuestionNumber() {
+		return this.#questionNumber;
+	}
+
+	nextQuestion() {
+		this.#questionNumber++;
+		this.#displayQuestionText();
+		return this.#questionNumber;
+	}
+
+	areQuestionsLoaded() {
+		return this.#areQuestionsLoaded;
+	}
+}
+
 let timeRemaining = 60;
 let timerInterval;
 
+// On Load
 $(() => {
-	let questionNumber = 0;
-	let questionsLoaded = false;
-
-	// get question bank from server
-	$.getJSON("https://raw.githubusercontent.com/TheTiiiim/HTML-CSS-JS-Quiz/main/questions.json")
-		.done((data) => {
-			questionBank = shuffle(data).slice(0, 10);
-			questionsLoaded = true;
-		});
+	let questionTracker = new QuestionTracker();
 
 	// Start Game
-	// TODO: wait unitl isReady is true before fading in
 	$("#startQuiz").on("click", function (e) {
 		// Change Screen
 		$(".start").fadeOut(() => {
-			setQuestionText(questionNumber);
+			// TODO: wait unitl questionTracker.areQuestionLoaded() is true before fading in
 			$(".questionArea").fadeIn(300, () => {
 				// Set Timer;
 				let timerInterval = setInterval(updateTimer, 1000);
@@ -42,41 +93,13 @@ $(() => {
 
 		//change question
 		$(".questionTextArea").fadeOut(200, () => {
-			questionNumber++;
-			setQuestionText(questionNumber);
+			questionTracker.nextQuestion();
 			$(".questionTextArea").fadeIn(200);
 		});
 	});
 
 	// PROBLEM: application dies when questionBank is exhausted
 });
-
-function setQuestionText(number) {
-	$(".questionArea .question").text(questionBank[number].question);
-
-	let choicesArray = shuffle(questionBank[number].choices);
-	let choicesQuery = $(".questionArea .choice");
-
-	let answerPosition = Math.floor(Math.random() * (3)) + 1;
-
-	// Iterates through positions spots and assigns one to be answer
-	for (i = 0; i < 4; i++) {
-		let choicePosition = choicesQuery.eq(i);
-		choicePosition.removeData("answer");
-		if (i === answerPosition) {
-			choicePosition.data("answer", true);
-			choicePosition.text(questionBank[number].answer);
-		} else {
-			choicePosition.data("answer", false);
-			if (answerPosition < i) {
-				let adjustedChoice = i - 1;
-				choicePosition.text(choicesArray[adjustedChoice]);
-			} else {
-				choicePosition.text(choicesArray[i]);
-			}
-		}
-	}
-}
 
 function updateTimer(change = -1) {
 	timeRemaining += change;
