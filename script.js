@@ -34,13 +34,17 @@ $(() => {
 
 	// Answer Choices
 	$(".questionArea .choice").on("click", function (e) {
+		// set feedback value
 		if ($(e.target).data("answer") === true) {
 			$(".answerResponse").text("Correct!").css("color", "#558564");
 		} else {
 			$(".answerResponse").text("Incorrect").css("color", "#E4572E");
 		}
+
+		// display and animate feedback
 		$(".answerResponse").stop(true, true).css("display", "block").fadeOut(2000);
 
+		//change question
 		$(".questionText").fadeOut(200, () => {
 			questionNumber++;
 			setQuestion(questionNumber);
@@ -75,6 +79,9 @@ function setQuestion(number) {
 				choicePosition.text(choicesArray[i]);
 			}
 		}
+
+		// cheat in console
+		// console.log(i + ": " + choicePosition.data("answer"));
 	}
 }
 
