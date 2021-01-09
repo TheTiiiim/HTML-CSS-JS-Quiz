@@ -127,15 +127,28 @@ const quizTimer = new Timer(60, endQuiz);
 
 // On Load
 $(() => {
-
 	// Start Game
-	$("#startQuiz").on("click", function (e) {
+	$(".start").on("click", function (e) {
 		// Change Screen
-		$(".start").fadeOut(() => {
+		$(".startArea").fadeOut(() => {
 			// TODO: wait unitl questionTracker.areQuestionLoaded() is true before fading in
 			$(".questionArea").fadeIn(300, () => {
 				quizTimer.start();
 			});
+		});
+	});
+
+	// return to startarea
+	$(".back").on("click", function (e) {
+		// get parent under main
+		let fadeRecipient = $(e.target);
+		while (!(fadeRecipient.parent().get(0).nodeName === "MAIN")) {
+			fadeRecipient = fadeRecipient.parent();
+		}
+
+		// Change Screen
+		fadeRecipient.fadeOut(() => {
+			$(".startArea").fadeIn();
 		});
 	});
 
@@ -166,8 +179,12 @@ $(() => {
 
 function endQuiz() {
 	let score = quizTimer.pause();
-	questionTracker.reset();
-
+	$(".questionArea").fadeOut(() => {
+		questionTracker.reset();
+		if (score <= 0) {
+			$(".timeUp").fadeIn();
+		}
+	})
 }
 
 
