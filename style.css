@@ -42,6 +42,17 @@ div.questionArea .timerArea {
 	margin: 0;
 }
 
+div.questionArea .timerDisplay,
+div.questionArea .timerChange {
+	text-align: center;
+	margin: 0 15px 0 0;
+}
+
 div.questionArea .timerDisplay {
-	margin: 15px;
+	margin-top: 15px;
+}
+
+div.questionArea .timerChange {
+	display: none;
+	color: #E4572E;
 }

@@ -39,6 +39,8 @@ $(() => {
 			$(".answerResponse").text("Correct!").css("color", "#558564");
 		} else {
 			$(".answerResponse").text("Incorrect").css("color", "#E4572E");
+			timeRemaining -= 5;
+			$(".timerChange").text("-5").stop(true, true).css("display", "block").fadeOut(1500)
 		}
 
 		// display and animate feedback
@@ -79,9 +81,6 @@ function setQuestion(number) {
 				choicePosition.text(choicesArray[i]);
 			}
 		}
-
-		// cheat in console
-		// console.log(i + ": " + choicePosition.data("answer"));
 	}
 }
 
