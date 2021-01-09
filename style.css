@@ -79,3 +79,7 @@ form.scoreForm label,
 form.scoreForm input {
 	text-align: left;
 }
+
+button {
+	cursor: pointer;
+}

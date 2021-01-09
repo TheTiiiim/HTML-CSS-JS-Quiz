@@ -167,7 +167,7 @@ $(() => {
 		// display and animate feedback
 		$(".answerResponse").stop(true, true).css("display", "block").fadeOut(2000);
 
-		//change question
+		//change question without setting display: none
 		let area = $(".questionTextArea");
 		area.animate({ "opacity": "0" }, 200, () => {
 			if (questionTracker.nextQuestion()) {
