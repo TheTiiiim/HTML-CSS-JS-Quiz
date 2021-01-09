@@ -48,22 +48,66 @@ class QuestionTracker {
 	}
 
 	nextQuestion() {
-		this.#questionNumber++;
-		this.#displayQuestionText();
-		return this.#questionNumber;
-	}
+			this.#questionNumber++;
+			this.#displayQuestionText();
+			return this.#questionNumber;
+		}
 
 	areQuestionsLoaded() {
 		return this.#areQuestionsLoaded;
 	}
 }
 
-let timeRemaining = 60;
-let timerInterval;
+class Timer {
+	defaultStartTime;
+	#timeRemaining;
+	#timerInterval;
+	#timeUpCallback;
+
+	constructor(defaultStartTime, timeUpCallback) {
+		this.defaultStartTime = defaultStartTime;
+		this.#timeRemaining = defaultStartTime;
+		$(".timerDisplay").text(this.#timeRemaining);
+		this.#timeUpCallback = timeUpCallback;
+	}
+
+	start(startTime = this.defaultStartTime) {
+		this.#timeRemaining = startTime;
+		this.resume();
+	}
+
+	pause() {
+		clearInterval(this.#timerInterval);
+		return this.#timeRemaining;
+	}
+
+	resume() {
+		this.#timerInterval = setInterval(() => {
+			this.changeTime(-1);
+		}, 1000);
+	}
+
+	timeRemaining() {
+		return this.#timeRemaining;
+	}
+
+	changeTime(amount) {
+		this.#timeRemaining += amount;
+		$(".timerDisplay").text(this.#timeRemaining);
+
+		// Check if time is up
+		if (this.#timeRemaining <= 0) {
+			this.pause();
+			this.#timeUpCallback();
+		}
+	}
+}
+
+let questionTracker = new QuestionTracker(10);
+let quizTimer = new Timer(60, endQuiz);
 
 // On Load
 $(() => {
-	let questionTracker = new QuestionTracker();
 
 	// Start Game
 	$("#startQuiz").on("click", function (e) {
@@ -71,8 +115,7 @@ $(() => {
 		$(".start").fadeOut(() => {
 			// TODO: wait unitl questionTracker.areQuestionLoaded() is true before fading in
 			$(".questionArea").fadeIn(300, () => {
-				// Set Timer;
-				let timerInterval = setInterval(updateTimer, 1000);
+				quizTimer.start();
 			});
 		});
 	});
@@ -84,7 +127,7 @@ $(() => {
 			$(".answerResponse").text("Correct!").css("color", "#558564");
 		} else {
 			$(".answerResponse").text("Incorrect").css("color", "#E4572E");
-			updateTimer(-5);
+			quizTimer.changeTime(-5);
 			$(".timerChange").text("-5").stop(true, true).css("display", "block").fadeOut(1500)
 		}
 
@@ -101,13 +144,8 @@ $(() => {
 	// PROBLEM: application dies when questionBank is exhausted
 });
 
-function updateTimer(change = -1) {
-	timeRemaining += change;
-	$(".timerDisplay").text(timeRemaining);
-	if (timeRemaining <= 0) {
-		clearInterval(timerInterval);
-		// TODO: end quiz
-	}
+function endQuiz() {
+
 }
 
 
