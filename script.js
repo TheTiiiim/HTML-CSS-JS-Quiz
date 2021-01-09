@@ -1,16 +1,22 @@
 class QuestionTracker {
-	#questionNumber
-	#questionBank
-	#areQuestionsLoaded
+	#questionNumber;
+	#questionBankFull;
+	#questionBank;
+	#areQuestionsLoaded;
+	#endQuizCallback;
+	questionAmount;
 
-	constructor() {
+	constructor(questionAmount, endQuizCallback) {
 		this.#questionNumber = 0
 		this.#areQuestionsLoaded = false;
+		this.#endQuizCallback = endQuizCallback;
+		this.questionAmount = questionAmount;
 
 		// get question bank from server
 		$.getJSON("https://raw.githubusercontent.com/TheTiiiim/HTML-CSS-JS-Quiz/main/questions.json")
 			.done((data) => {
-				this.#questionBank = shuffle(data).slice(0, 10);
+				this.#questionBankFull = JSON.parse(JSON.stringify(data));
+				this.#questionBank = shuffle(data).slice(0, (this.questionAmount > data.length) ? data.length : this.questionAmount);
 				this.#areQuestionsLoaded = true;
 				this.#displayQuestionText();
 			});
@@ -43,15 +49,29 @@ class QuestionTracker {
 		}
 	}
 
+	reset(questionAmount = this.questionAmount) {
+		this.questionAmount = questionAmount;
+		this.#questionNumber = 0
+		let data = JSON.parse(JSON.stringify(this.#questionBankFull));
+		this.#questionBank = shuffle(data).slice(0, (this.questionAmount > data.length) ? data.length : this.questionAmount);
+		this.#displayQuestionText();
+	}
+
 	getQuestionNumber() {
 		return this.#questionNumber;
 	}
 
 	nextQuestion() {
+		//if question number exceeds questions in bank
+		if (this.#questionNumber >= (this.#questionBank.length - 1)) {
+			this.#endQuizCallback();
+			return false;
+		} else {
 			this.#questionNumber++;
 			this.#displayQuestionText();
-			return this.#questionNumber;
+			return true;
 		}
+	}
 
 	areQuestionsLoaded() {
 		return this.#areQuestionsLoaded;
@@ -97,14 +117,13 @@ class Timer {
 
 		// Check if time is up
 		if (this.#timeRemaining <= 0) {
-			this.pause();
 			this.#timeUpCallback();
 		}
 	}
 }
 
-let questionTracker = new QuestionTracker(10);
-let quizTimer = new Timer(60, endQuiz);
+const questionTracker = new QuestionTracker(10, endQuiz);
+const quizTimer = new Timer(60, endQuiz);
 
 // On Load
 $(() => {
@@ -136,8 +155,9 @@ $(() => {
 
 		//change question
 		$(".questionTextArea").fadeOut(200, () => {
-			questionTracker.nextQuestion();
-			$(".questionTextArea").fadeIn(200);
+			if (questionTracker.nextQuestion()) {
+				$(".questionTextArea").fadeIn(200);
+			}
 		});
 	});
 
@@ -145,6 +165,8 @@ $(() => {
 });
 
 function endQuiz() {
+	let score = quizTimer.pause();
+	questionTracker.reset();
 
 }
 
