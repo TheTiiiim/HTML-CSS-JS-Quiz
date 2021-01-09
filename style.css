@@ -1,3 +1,7 @@
+body {
+	cursor: pointer;
+}
+
 main.container {
 	margin-top: 10vh;
 }
@@ -78,8 +82,4 @@ div.d-flex.justify-content-center button:not(:first-child) {
 form.scoreForm label,
 form.scoreForm input {
 	text-align: left;
-}
-
-button {
-	cursor: pointer;
 }
