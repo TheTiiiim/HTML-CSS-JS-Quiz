@@ -12,14 +12,23 @@ main p {
 	font-size: 1.4em;
 }
 
-div.startArea {
+div.startArea,
+form.scoreForm {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+div.startArea {
 	max-width: 720px;
 }
 
+form.scoreForm {
+	max-width: 540px;
+}
+
 div.startArea *,
-div.timeUp * {
+div.timeUp *,
+div.submitScore * {
 	text-align: center;
 }
 
@@ -60,4 +69,13 @@ div.questionArea .timerChange {
 div.questionArea .timerChange {
 	display: none;
 	color: #E4572E;
+}
+
+div.d-flex.justify-content-center button:not(:first-child) {
+	margin-left: 10px;
+}
+
+form.scoreForm label,
+form.scoreForm input {
+	text-align: left;
 }

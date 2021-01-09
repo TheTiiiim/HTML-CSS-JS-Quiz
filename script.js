@@ -132,6 +132,7 @@ $(() => {
 		// Change Screen
 		$(".startArea").fadeOut(() => {
 			// TODO: wait unitl questionTracker.areQuestionLoaded() is true before fading in
+			$(".questionTextArea").css("opacity", "100%");
 			$(".questionArea").fadeIn(300, () => {
 				quizTimer.start();
 			});
@@ -167,14 +168,15 @@ $(() => {
 		$(".answerResponse").stop(true, true).css("display", "block").fadeOut(2000);
 
 		//change question
-		$(".questionTextArea").fadeOut(200, () => {
+		let area = $(".questionTextArea");
+		area.animate({ opacity: 0 }, 200, () => {
 			if (questionTracker.nextQuestion()) {
-				$(".questionTextArea").fadeIn(200);
+				area.animate({ opacity: 0 }, 200);
 			}
 		});
 	});
 
-	// PROBLEM: application dies when questionBank is exhausted
+	// TODO: handle scoreSubmit form submissions
 });
 
 function endQuiz() {
@@ -183,6 +185,9 @@ function endQuiz() {
 		questionTracker.reset();
 		if (score <= 0) {
 			$(".timeUp").fadeIn();
+		} else {
+			$("#inputScore").attr("value", score)
+			$(".submitScore").fadeIn();
 		}
 	})
 }
