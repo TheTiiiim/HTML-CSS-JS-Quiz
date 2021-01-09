@@ -169,9 +169,9 @@ $(() => {
 
 		//change question
 		let area = $(".questionTextArea");
-		area.animate({ opacity: 0 }, 200, () => {
+		area.animate({ "opacity": "0" }, 200, () => {
 			if (questionTracker.nextQuestion()) {
-				area.animate({ opacity: 0 }, 200);
+				area.animate({ "opacity": "100%" }, 200);
 			}
 		});
 	});
