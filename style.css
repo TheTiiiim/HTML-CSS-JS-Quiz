@@ -34,3 +34,14 @@ div.questionArea button.btn.choice {
 div.questionArea .answerResponse {
 	display: none;
 }
+
+div.questionArea .timerArea {
+	position: fixed;
+	top: 0;
+	right: 0;
+	margin: 0;
+}
+
+div.questionArea .timerDisplay {
+	margin: 15px;
+}

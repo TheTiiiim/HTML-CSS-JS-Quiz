@@ -3,6 +3,7 @@ let questionBank;
 $(() => {
 	let questionNumber = 0;
 	let questionsLoaded = false;
+	let timeRemaining = 60;
 
 	// get question bank from server
 	$.getJSON("https://raw.githubusercontent.com/TheTiiiim/HTML-CSS-JS-Quiz/main/questions.json")
@@ -14,9 +15,20 @@ $(() => {
 	// Start Game
 	// TODO: wait unitl isReady is true before fading in
 	$("#startQuiz").on("click", function (e) {
+		// Change Screen
 		$(".start").fadeOut(() => {
 			setQuestion(questionNumber);
-			$(".questionArea").fadeIn(300);
+			$(".questionArea").fadeIn(300, () => {
+				// Set Timer;
+				let timerInterval = setInterval(() => {
+					timeRemaining--;
+					$(".timerDisplay").text(timeRemaining);
+					if (timeRemaining <= 0) {
+						clearInterval(timerInterval);
+						// TODO: end quiz
+					}
+				}, 1000);
+			});
 		});
 	});
 
