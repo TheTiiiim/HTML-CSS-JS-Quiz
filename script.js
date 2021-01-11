@@ -176,7 +176,47 @@ $(() => {
 		});
 	});
 
-	// TODO: handle scoreSubmit form submissions
+	// score submission
+	$('.submitScore').on("submit", function (e) {
+		// prevent the page refresh
+		e.preventDefault();
+
+		// disable button for no double-submission
+		$("#SubmitScoreButton").prop("disabled", true);
+
+		let dataArray = $(e.target).serializeArray();
+
+		let dataObj = {};
+
+		for (let i = 0; i < dataArray.length; i++) {
+			let name = dataArray[i]["name"]
+			let value = dataArray[i]["value"]
+
+			if (name === "score") {
+				value = parseInt(value);
+			}
+
+			dataObj[name] = value;
+		}
+
+		let highscores = [];
+
+		try {
+			// adds value to existing highscores object if possible
+			highscores = JSON.parse(window.localStorage.getItem("highScores"));
+
+			if (Array.isArray(highscores)) {
+				highscores.push(dataObj);
+			} else {
+				throw new Error();
+			}
+		} catch {
+			// otherwise creates a new one
+			highscores = [dataObj];
+		} finally {
+			window.localStorage.setItem("highScores", JSON.stringify(highscores));
+		}
+	})
 });
 
 function endQuiz() {
@@ -186,7 +226,8 @@ function endQuiz() {
 		if (score <= 0) {
 			$(".timeUp").fadeIn();
 		} else {
-			$("#inputScore").attr("value", score)
+			$(".inputScore").attr("value", score);
+			$("#SubmitScoreButton").prop("disabled", false);
 			$(".submitScore").fadeIn();
 		}
 	})
