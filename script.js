@@ -207,6 +207,11 @@ $(() => {
 
 			if (Array.isArray(highscores)) {
 				highscores.push(dataObj);
+				highscores.sort((a, b) => {
+					var aScore = a.score;
+					var bScore = b.score;
+					return ((aScore > bScore) ? -1 : ((aScore > bScore) ? 1 : 0));
+				});
 			} else {
 				throw new Error();
 			}
@@ -216,7 +221,61 @@ $(() => {
 		} finally {
 			window.localStorage.setItem("highScores", JSON.stringify(highscores));
 		}
-	})
+	});
+
+	// High Scores
+	$(".highscoresButton").on("click", function (e) {
+		// get parent under main
+		let fadeRecipient = $(e.target);
+		while (!(fadeRecipient.parent().get(0).nodeName === "MAIN")) {
+			fadeRecipient = fadeRecipient.parent();
+		}
+
+		let highscores = [];
+
+		try {
+			// reads highscores object if possible
+			highscores = JSON.parse(window.localStorage.getItem("highScores"));
+		} catch (e) {
+			console.log(e)
+		} finally {
+			if (Array.isArray(highscores)) {
+				highscores = highscores.slice(0, 10);
+
+				// display data
+				let dataArea = $(".highScoresData tbody").children("tr");
+				dataArea.each(function (index, element) {
+					console.log
+					element = $(element).children("td");
+					if (highscores[index]) {
+						element.eq(0).text(highscores[index].user);
+						element.eq(1).text(highscores[index].score);
+					} else {
+						element.eq(0).text("");
+						element.eq(1).text("");
+					}
+				});
+			}
+			// Change Screen
+			fadeRecipient.fadeOut(() => {
+				$(".highScores").fadeIn();
+			});
+		}
+	});
+
+	// Clear High Scores
+	$(".clearScores").on("click", function (e) {
+		// clear highscores table
+		let dataArea = $(".highScoresData tbody").children("tr");
+		dataArea.each(function (index, element) {
+			element = $(element).children("td");
+			element.eq(0).text("");
+			element.eq(1).text("");
+		});
+
+		//clear scores from localdata
+		window.localStorage.removeItem("highScores")
+	});
 });
 
 function endQuiz() {
