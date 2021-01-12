@@ -18,74 +18,20 @@
 		]
 	},
 	{
-		"question": "Lorem ipsum, dolor sit amet consectetur adipisicing.",
-		"answer": "true",
+		"question": "Which javascript condition is truthy?",
+		"answer": "(!(true && false) && (false || true))",
 		"choices": [
-			"false",
-			"false",
-			"false"
+			"!(!(true && true) || true)",
+			"((true || true) && !(true && true))",
+			"!(true && !false)"
 		]
 	},
 	{
-		"question": "AAAAAAAAAAAAAAAAAAA AAAAAAAAAA AAAAAAAAAAAAAAA",
+		"question": "Which of the following does NOT trigger when the document is ready?",
 		"answer": "true",
 		"choices": [
-			"false",
-			"false",
-			"false"
-		]
-	},
-	{
-		"question": "BBBBBBBBB BBBBBBBBBBBBBBBBBBB bBBBBBBBBBB",
-		"answer": "true",
-		"choices": [
-			"false",
-			"false",
-			"false"
-		]
-	},
-	{
-		"question": "DDDD DDDDDDDDD DDDDDDDDDD DDDDDDDDDD",
-		"answer": "true",
-		"choices": [
-			"false",
-			"false",
-			"false"
-		]
-	},
-	{
-		"question": "CCCCCCCc CCCCC c ccccccccccccc cccc",
-		"answer": "true",
-		"choices": [
-			"false",
-			"false",
-			"false"
-		]
-	},
-	{
-		"question": "eeeeeeee eeeeeeee eeeeeeeeeeeee eeeeeeeee",
-		"answer": "true",
-		"choices": [
-			"false",
-			"false",
-			"false"
-		]
-	},
-	{
-		"question": "fffffff fffffffffffffff ffffff ffffffffffffff",
-		"answer": "true",
-		"choices": [
-			"false",
-			"false",
-			"false"
-		]
-	},
-	{
-		"question": "gggg gggggggggggg ggggg gggggggggggggg ggggg",
-		"answer": "true",
-		"choices": [
-			"false",
-			"false",
+			"$(document).ready(() => {/* ... */})",
+			"$(function() {/* ... */})",
 			"false"
 		]
 	}
