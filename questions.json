@@ -28,11 +28,11 @@
 	},
 	{
 		"question": "Which of the following does NOT trigger when the document is ready?",
-		"answer": "true",
+		"answer": "$(document).on('ready', () => {/* ... */})",
 		"choices": [
 			"$(document).ready(() => {/* ... */})",
 			"$(function() {/* ... */})",
-			"false"
+			"$('document').ready(function() {/* ... */})"
 		]
 	}
 ]
