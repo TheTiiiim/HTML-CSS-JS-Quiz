@@ -128,7 +128,16 @@ const quizTimer = new Timer(60, endQuiz);
 // On Load
 $(() => {
 	// Start Game
-	$(".start").on("click", function (e) {
+	$(".start").on("click touchstart", function (e) {
+		e.preventDefault(); //prevent default behavior
+		if (e.type == "touchstart") {
+			this.hasBeenTouchedRecently = true;
+			setTimeout(() => { this.hasBeenTouchedRecently = false; }, 500);
+		} else if (e.type == "click") {
+			if (this.hasBeenTouchedRecently) {
+				return;
+			}
+		}
 		// Change Screen
 		$(".startArea").fadeOut(() => {
 			// TODO: wait unitl questionTracker.areQuestionLoaded() is true before fading in
@@ -140,7 +149,16 @@ $(() => {
 	});
 
 	// return to startarea
-	$(".back").on("click", function (e) {
+	$(".back").on("click touchstart", function (e) {
+		e.preventDefault(); //prevent default behavior
+		if (e.type == "touchstart") {
+			this.hasBeenTouchedRecently = true;
+			setTimeout(() => { this.hasBeenTouchedRecently = false; }, 500);
+		} else if (e.type == "click") {
+			if (this.hasBeenTouchedRecently) {
+				return;
+			}
+		}
 		// get parent under main
 		let fadeRecipient = $(e.target);
 		while (!(fadeRecipient.parent().get(0).nodeName === "MAIN")) {
@@ -154,7 +172,16 @@ $(() => {
 	});
 
 	// Answer Choices
-	$(".questionArea .choice").on("click", function (e) {
+	$(".questionArea .choice").on("click touchstart", function (e) {
+		e.preventDefault(); //prevent default behavior
+		if (e.type == "touchstart") {
+			this.hasBeenTouchedRecently = true;
+			setTimeout(() => { this.hasBeenTouchedRecently = false; }, 500);
+		} else if (e.type == "click") {
+			if (this.hasBeenTouchedRecently) {
+				return;
+			}
+		}
 		// set feedback value
 		if ($(e.target).data("answer") === true) {
 			$(".answerResponse").text("Correct!").css("color", "#558564");
@@ -224,7 +251,16 @@ $(() => {
 	});
 
 	// High Scores
-	$(".highscoresButton").on("click", function (e) {
+	$(".highscoresButton").on("click touchstart", function (e) {
+		e.preventDefault(); //prevent default behavior
+		if (e.type == "touchstart") {
+			this.hasBeenTouchedRecently = true;
+			setTimeout(() => { this.hasBeenTouchedRecently = false; }, 500);
+		} else if (e.type == "click") {
+			if (this.hasBeenTouchedRecently) {
+				return;
+			}
+		}
 		// get parent under main
 		let fadeRecipient = $(e.target);
 		while (!(fadeRecipient.parent().get(0).nodeName === "MAIN")) {
@@ -264,7 +300,16 @@ $(() => {
 	});
 
 	// Clear High Scores
-	$(".clearScores").on("click", function (e) {
+	$(".clearScores").on("click touchstart", function (e) {
+		e.preventDefault(); //prevent default behavior
+		if (e.type == "touchstart") {
+			this.hasBeenTouchedRecently = true;
+			setTimeout(() => { this.hasBeenTouchedRecently = false; }, 500);
+		} else if (e.type == "click") {
+			if (this.hasBeenTouchedRecently) {
+				return;
+			}
+		}
 		// clear highscores table
 		let dataArea = $(".highScoresData tbody").children("tr");
 		dataArea.each(function (index, element) {
