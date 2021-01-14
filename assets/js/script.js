@@ -13,7 +13,7 @@ class QuestionTracker {
 		this.questionAmount = questionAmount;
 
 		// get question bank from server
-		$.getJSON("https://raw.githubusercontent.com/TheTiiiim/HTML-CSS-JS-Quiz/main/questions.json")
+		$.getJSON("https://raw.githubusercontent.com/TheTiiiim/HTML-CSS-JS-Quiz/main/assets/questions.json")
 			.done((data) => {
 				this.#questionBankFull = JSON.parse(JSON.stringify(data));
 				this.#questionBank = shuffle(data).slice(0, (this.questionAmount > data.length) ? data.length : this.questionAmount);
