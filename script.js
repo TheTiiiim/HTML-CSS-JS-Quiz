@@ -140,7 +140,7 @@ $(() => {
 		}
 		// Change Screen
 		$(".startArea").fadeOut(() => {
-			// TODO: wait unitl questionTracker.areQuestionLoaded() is true before fading in
+			// TODO: wait unitl questionTracker.areQuestionsLoaded() is true before fading in
 			$(".questionTextArea").css("opacity", "100%");
 			$(".questionArea").fadeIn(300, () => {
 				quizTimer.start();
@@ -247,6 +247,7 @@ $(() => {
 			highscores = [dataObj];
 		} finally {
 			window.localStorage.setItem("highScores", JSON.stringify(highscores));
+			// TODO: alert user that score has been submitted
 		}
 	});
 
@@ -330,7 +331,7 @@ function endQuiz() {
 		if (score <= 0) {
 			$(".timeUp").fadeIn();
 		} else {
-			$(".inputScore").attr("value", score);
+			$(".scoreValue").attr("value", score);
 			$("#SubmitScoreButton").prop("disabled", false);
 			$(".submitScore").fadeIn();
 		}
