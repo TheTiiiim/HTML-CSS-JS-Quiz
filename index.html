@@ -24,10 +24,23 @@
 			</div>
 
 			<div class="questionArea">
-				<div class="timerArea">
-					<p class="timerDisplay">60</p>
-					<p class="timerChange">0</p>
+
+				<div class="statusBar row">
+					<!-- question number -->
+					<div class="col">Question <span class="questionNumber">1</span> of <span class="questionAmount">10</span>.</div>
+
+					<!-- exit button -->
+					<div class="col">
+						<button type="button" class="btn btn-primary back">Exit</button>
+					</div>
+
+					<!-- timer area -->
+					<div class="timerArea col">
+						<div class="timerDisplay">60</div>
+						<div class="timerChange">0</div>
+					</div>
 				</div>
+
 				<div class="questionTextArea">
 					<h2 class="question">Placeholder question?</h2>
 					<button type="button" class="btn btn-primary choice">placeholder choice 1</button>
@@ -35,11 +48,13 @@
 					<button type="button" class="btn btn-primary choice">placeholder choice 3</button>
 					<button type="button" class="btn btn-primary choice">placeholder choice 4</button>
 				</div>
+
 				<div class="spinnerArea text-center">
 					<div class="spinner-border" role="status">
 						<span class="sr-only">Loading...</span>
 					</div>
 				</div>
+
 				<p class="answerResponse">Correct or Incorrect</p>
 			</div>
 
@@ -47,23 +62,27 @@
 				<h2>Quiz Complete</h2>
 				<p>Would you like to save your score?</p>
 				<form class="scoreForm" autocomplete="off">
+
 					<div class="form-row">
 						<label for="inputScore" class="col-sm-4 col-form-label">Score</label>
 						<div class="form-group col-sm-8">
 							<input type="number" class="form-control-plaintext scoreValue" name="score" value="0" id="inputScore" readonly>
 						</div>
 					</div>
+
 					<div class="form-row">
 						<label for="inputUser" class="col-sm-4 col-form-label">User</label>
 						<div class="form-group col-sm-8">
 							<input type="text" class="form-control" name="user" id="inputUser" maxlength="10" required>
 						</div>
 					</div>
+
 					<div class="d-flex justify-content-center">
 						<button type="submit" class="btn btn-primary submit" id="SubmitScoreButton">Submit</button>
 						<button type="button" class="btn btn-primary back">Back</button>
 						<button type="button" class="btn btn-primary highscoresButton">HighScores</button>
 					</div>
+
 					<p class="scoreSubmittedAlert">Your score has been submitted!</p>
 				</form>
 			</div>
@@ -87,6 +106,7 @@
 							<th scope="col">Score</th>
 						</tr>
 					</thead>
+
 					<tbody>
 						<tr>
 							<th scope="row">1</th>

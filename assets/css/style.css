@@ -62,19 +62,6 @@ div.questionArea button.btn.choice {
 	margin-top: 10px;
 }
 
-div.questionArea .timerArea {
-	position: absolute;
-	top: 6px;
-	right: 0;
-	margin: 0;
-}
-
-div.questionArea .timerDisplay,
-div.questionArea .timerChange {
-	text-align: center;
-	margin: 0;
-}
-
 div.d-flex.justify-content-center button:not(:first-child) {
 	margin-left: 10px;
 }
@@ -82,4 +69,30 @@ div.d-flex.justify-content-center button:not(:first-child) {
 form.scoreForm label,
 form.scoreForm input {
 	text-align: left;
+}
+
+div.questionArea div.statusBar {
+	height: 50px;
+	align-items: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-bottom: 20px;
+}
+
+div.questionArea div.statusBar>* {
+	margin: 0;
+	text-align: center;
+}
+
+div.questionArea div.statusBar>*:first-child {
+	text-align: left;
+}
+
+div.questionArea div.statusBar>*:last-child {
+	text-align: right;
+}
+
+div.questionArea div.statusBar>*:last-child * {
+	float: right;
+	margin-left: 10px;
 }

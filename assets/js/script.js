@@ -16,8 +16,11 @@ class QuestionTracker {
 				// question data master copy
 				this.#questionBankFull = JSON.parse(JSON.stringify(data));
 
+				// adjust questionbank length
+				this.questionAmount = (this.questionAmount > data.length) ? data.length : this.questionAmount;
+
 				// question data working copy
-				this.#questionBank = shuffle(data).slice(0, (this.questionAmount > data.length) ? data.length : this.questionAmount);
+				this.#questionBank = shuffle(data).slice(0, this.questionAmount);
 
 				// hide spinning circle
 				$(".spinnerArea").css("display", "none");
@@ -25,6 +28,7 @@ class QuestionTracker {
 
 				// pre-display first question
 				this.#displayQuestionText();
+				$(".questionAmount").text(this.questionAmount);
 			})
 			.fail(function () {
 				console.error("Unable to load quiz questions.")
@@ -32,23 +36,38 @@ class QuestionTracker {
 	}
 
 	#displayQuestionText() {
+		// display question
 		$(".questionArea .question").text(this.#questionBank[this.#questionNumber].question);
 
+		// change question number
+		$(".questionNumber").text((this.#questionNumber + 1).toString());
+
+		// shuffle incorrect answer choices
 		let choicesArray = shuffle(this.#questionBank[this.#questionNumber].choices);
+
+		// query for where choices go
 		let choicesQuery = $(".questionArea .choice");
 
+		// determine correct answer's position
 		let answerPosition = Math.floor(Math.random() * (3)) + 1;
 
-		// Iterates through positions spots and assigns one to be answer
+		// display answer choices
 		for (let i = 0; i < 4; i++) {
 			let choicePosition = choicesQuery.eq(i);
 			choicePosition.removeData("answer");
+
+			// if this is the determined correct answer spot
 			if (i === answerPosition) {
+				// display the correct answer
 				choicePosition.data("answer", true);
 				choicePosition.text(this.#questionBank[this.#questionNumber].answer);
 			} else {
+				// other wise display incorrect choice
 				choicePosition.data("answer", false);
+
+				// if answer has been displayed above this choice
 				if (answerPosition < i) {
+					// adjust for it
 					let adjustedChoice = i - 1;
 					choicePosition.text(choicesArray[adjustedChoice]);
 				} else {
@@ -64,6 +83,7 @@ class QuestionTracker {
 		let data = JSON.parse(JSON.stringify(this.#questionBankFull));
 		this.#questionBank = shuffle(data).slice(0, (this.questionAmount > data.length) ? data.length : this.questionAmount);
 		this.#displayQuestionText();
+		$(".questionAmount").text(this.questionAmount);
 	}
 
 	getQuestionNumber() {
@@ -97,6 +117,7 @@ class Timer {
 	}
 
 	start(startTime = this.defaultStartTime) {
+		this.pause();
 		this.#timeRemaining = startTime;
 		this.resume();
 	}
@@ -133,19 +154,13 @@ const quizTimer = new Timer(60, endQuiz);
 // On Load
 $(() => {
 	// Start Game
-	$(".start").on("click touchstart", function (e) {
+	$(".start").on("click", function (e) {
 		e.preventDefault(); //prevent default behavior
-		if (e.type == "touchstart") {
-			this.hasBeenTouchedRecently = true;
-			setTimeout(() => { this.hasBeenTouchedRecently = false; }, 500);
-		} else if (e.type == "click") {
-			if (this.hasBeenTouchedRecently) {
-				return;
-			}
-		}
+
 		// Change Screen
 		$(".startArea").fadeOut(() => {
 			$(".questionTextArea").css("opacity", "100%");
+			$(".timerDisplay").text(quizTimer.defaultStartTime);
 			$(".questionArea").fadeIn(300, () => {
 				quizTimer.start();
 			});
@@ -153,16 +168,9 @@ $(() => {
 	});
 
 	// return to startarea
-	$(".back").on("click touchstart", function (e) {
+	$(".back").on("click", function (e) {
 		e.preventDefault(); //prevent default behavior
-		if (e.type == "touchstart") {
-			this.hasBeenTouchedRecently = true;
-			setTimeout(() => { this.hasBeenTouchedRecently = false; }, 500);
-		} else if (e.type == "click") {
-			if (this.hasBeenTouchedRecently) {
-				return;
-			}
-		}
+
 		// get parent under main
 		let fadeRecipient = $(e.target);
 		while (!(fadeRecipient.parent().get(0).nodeName === "MAIN")) {
@@ -171,21 +179,19 @@ $(() => {
 
 		// Change Screen
 		fadeRecipient.fadeOut(() => {
+
+			if (fadeRecipient.hasClass("questionArea")) {
+				questionTracker.reset();
+				quizTimer.pause();
+			}
+
 			$(".startArea").fadeIn();
 		});
 	});
 
 	// Answer Choices
-	$(".questionArea .choice").on("click touchstart", function (e) {
+	$(".questionArea .choice").on("click", function (e) {
 		e.preventDefault(); //prevent default behavior
-		if (e.type == "touchstart") {
-			this.hasBeenTouchedRecently = true;
-			setTimeout(() => { this.hasBeenTouchedRecently = false; }, 500);
-		} else if (e.type == "click") {
-			if (this.hasBeenTouchedRecently) {
-				return;
-			}
-		}
 		// set feedback value
 		if ($(e.target).data("answer") === true) {
 			$(".answerResponse").text("Correct!").css("color", "#558564");
@@ -256,16 +262,9 @@ $(() => {
 	});
 
 	// High Scores
-	$(".highscoresButton").on("click touchstart", function (e) {
+	$(".highscoresButton").on("click ", function (e) {
 		e.preventDefault(); //prevent default behavior
-		if (e.type == "touchstart") {
-			this.hasBeenTouchedRecently = true;
-			setTimeout(() => { this.hasBeenTouchedRecently = false; }, 500);
-		} else if (e.type == "click") {
-			if (this.hasBeenTouchedRecently) {
-				return;
-			}
-		}
+
 		// get parent under main
 		let fadeRecipient = $(e.target);
 		while (!(fadeRecipient.parent().get(0).nodeName === "MAIN")) {

@@ -21,14 +21,23 @@ p {
 	color: #564946;
 }
 
-div.questionArea .timerChange {
+div.questionArea div.timerChange {
 	color: #E4572E;
+}
+
+div.questionArea div.statusBar {
+	background-color: #564946;
+}
+
+div.statusBar * {
+	color: #f8f9fa;
 }
 
 
 /* bootstrap button color override */
 
-.btn-primary {
+.btn-primary,
+button.btn-primary {
 	color: #564946;
 	background-color: #49d49d;
 	border-color: #2FC68A;
@@ -68,6 +77,9 @@ div.questionArea .timerChange {
 .show>.btn-primary.dropdown-toggle:focus {
 	box-shadow: 0 0 0 0.2rem #2FC68A80;
 }
+
+
+/* table color override */
 
 table.table,
 th,
