@@ -2,23 +2,32 @@ class QuestionTracker {
 	#questionNumber;
 	#questionBankFull;
 	#questionBank;
-	#areQuestionsLoaded;
 	#endQuizCallback;
 	questionAmount;
 
 	constructor(questionAmount, endQuizCallback) {
 		this.#questionNumber = 0
-		this.#areQuestionsLoaded = false;
 		this.#endQuizCallback = endQuizCallback;
 		this.questionAmount = questionAmount;
 
 		// get question bank from server
 		$.getJSON("https://raw.githubusercontent.com/TheTiiiim/HTML-CSS-JS-Quiz/main/assets/questions.json")
 			.done((data) => {
+				// question data master copy
 				this.#questionBankFull = JSON.parse(JSON.stringify(data));
+
+				// question data working copy
 				this.#questionBank = shuffle(data).slice(0, (this.questionAmount > data.length) ? data.length : this.questionAmount);
-				this.#areQuestionsLoaded = true;
+
+				// hide spinning circle
+				$(".spinnerArea").css("display", "none");
+				$(".questionTextArea").css("display", "block")
+
+				// pre-display first question
 				this.#displayQuestionText();
+			})
+			.fail(function () {
+				console.error("Unable to load quiz questions.")
 			});
 	}
 
@@ -71,10 +80,6 @@ class QuestionTracker {
 			this.#displayQuestionText();
 			return true;
 		}
-	}
-
-	areQuestionsLoaded() {
-		return this.#areQuestionsLoaded;
 	}
 }
 
@@ -140,7 +145,6 @@ $(() => {
 		}
 		// Change Screen
 		$(".startArea").fadeOut(() => {
-			// TODO: wait unitl questionTracker.areQuestionsLoaded() is true before fading in
 			$(".questionTextArea").css("opacity", "100%");
 			$(".questionArea").fadeIn(300, () => {
 				quizTimer.start();
