@@ -21,7 +21,7 @@ The deployed project can be found [here](https://thetiiiim.github.io/HTML-CSS-JS
 
 ![Title Page](https://github.com/TheTiiiim/HTML-CSS-JS-Quiz/blob/main/assets/images/screenshot-title.png?raw=true)
 
-![Question Layout](https://github.com/TheTiiiim/HTML-CSS-JS-Quiz/blob/main/assets/images/screenshot-question.png?raw=true)
+![Question Layout](https://github.com/TheTiiiim/HTML-CSS-JS-Quiz/blob/main/assets/images/screenshot-questionUpdated.png?raw=true)
 
 ![Time Up Page](https://github.com/TheTiiiim/HTML-CSS-JS-Quiz/blob/main/assets/images/screenshot-timeup.png?raw=true)
 
