@@ -15,6 +15,8 @@ The deployed project can be found [here](https://thetiiiim.github.io/HTML-CSS-JS
 
 [Randomize Array Order](https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array)
 
+[Many of the quiz questions](https://www.w3docs.com/quiz/)
+
 ## Screenshots
 
 ![Title Page](https://github.com/TheTiiiim/HTML-CSS-JS-Quiz/blob/main/assets/images/screenshot-title.png?raw=true)

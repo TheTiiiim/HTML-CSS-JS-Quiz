@@ -34,5 +34,68 @@
 			"$(function() {/* ... */})",
 			"$('document').ready(function() {/* ... */})"
 		]
+	},
+	{
+		"question": "HTML stands for",
+		"answer": "Hyper Text Markup Language",
+		"choices": [
+			"Hyper Text Modul Language",
+			"Hyper Test Markup Language",
+			"Hyperlink Markup Language"
+		]
+	},
+	{
+		"question": "Where we can use the <style> tag?",
+		"answer": "In the <head> and <body> elements",
+		"choices": [
+			"In the <head> element",
+			"In the <body> element",
+			"In neither the <head> nor the <body> elements"
+		]
+	},
+	{
+		"question": "How do you write an HTML Comment?",
+		"answer": "<!-- This is an HTML comment -->",
+		"choices": [
+			"// This is an HTML comment",
+			"/* This is an HTML comment */",
+			"** This is an HTML comment **"
+		]
+	},
+	{
+		"question": "What HTML form input must be used to present multiple options, but select only one?",
+		"answer": "<input type=\"radio\">",
+		"choices": [
+			"<input type=\"text\">",
+			"<input type=\"checkbox\">",
+			"<input type=\"submit\">"
+		]
+	},
+	{
+		"question": "What is the HTML form input used to send information of the form to the server?",
+		"answer": "<input type=\"submit\">",
+		"choices": [
+			"<input type=\"server\">",
+			"<input type=\"send\">",
+			"<input type=\"mail\">"
+		]
+	},
+	{
+		"question": "How you can open the link in a new window?",
+		"answer": "target=\"_blank\"",
+		"choices": [
+			"target=\"_new\"",
+			"target=\"_window\"",
+			"target=\"_tab\""
+		]
+	},
+	{
+		"question": "CSS stands for",
+		"answer": "Cascading Style Sheets",
+		"choices": [
+			"Computer Style Sheets",
+			"Creative Style Sheets",
+			"Canvas Styling System"
+		]
 	}
 ]
