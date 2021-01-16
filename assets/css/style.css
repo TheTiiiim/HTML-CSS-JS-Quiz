@@ -28,7 +28,8 @@ form.scoreForm {
 
 div.startArea *,
 div.timeUp *,
-div.submitScore * {
+div.submitScore *,
+div.submitScore p.scoreSubmittedAlert {
 	text-align: center;
 }
 
@@ -40,13 +41,15 @@ div.questionArea,
 div.submitScore,
 div.timeUp,
 div.highScores,
-div.questionArea .answerResponse {
+div.questionArea .answerResponse,
+div.questionArea div.questionTextArea,
+div.questionArea .timerChange,
+div.submitScore p.scoreSubmittedAlert {
 	display: none;
 }
 
 div.questionArea div.questionTextArea {
 	margin-right: 50px;
-	display: none;
 }
 
 div.spinner-border {
@@ -70,11 +73,6 @@ div.questionArea .timerDisplay,
 div.questionArea .timerChange {
 	text-align: center;
 	margin: 0;
-}
-
-div.questionArea .timerChange {
-	display: none;
-	color: #E4572E;
 }
 
 div.d-flex.justify-content-center button:not(:first-child) {

@@ -251,7 +251,7 @@ $(() => {
 			highscores = [dataObj];
 		} finally {
 			window.localStorage.setItem("highScores", JSON.stringify(highscores));
-			// TODO: alert user that score has been submitted
+			$(".scoreSubmittedAlert").stop(true, true).css("display", "block").fadeOut(3000);
 		}
 	});
 
